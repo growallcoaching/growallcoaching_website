@@ -1,0 +1,150 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Aap apna manpasand font use kar sakte hain */
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* Hero Section Base */
+.edugrow-hero-section {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%); /* Halka sa professional background */
+}
+
+/* Container Wrapper */
+.edugrow-hero-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    gap: 40px; /* Text aur Image ke beech ka gap */
+}
+
+/* Text Content Area */
+.edugrow-hero-text-content {
+    flex: 1;
+}
+
+.edugrow-hero-text-content h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111111;
+    margin-bottom: 20px;
+}
+
+.edugrow-hero-text-content h1 span {
+    color: #007bff; /* Highlighted text color (Blue) */
+}
+
+.edugrow-hero-text-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555555;
+    margin-bottom: 30px;
+}
+
+/* Buttons Styling */
+.edugrow-hero-action-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap; /* Mobile me buttons wrap ho sakein */
+}
+
+.edugrow-hero-action-buttons a {
+    text-decoration: none;
+    padding: 12px 28px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+}
+
+.edugrow-hero-btn-main {
+    background-color: #007bff;
+    color: #ffffff;
+    border: 2px solid #007bff;
+}
+
+.edugrow-hero-btn-main:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.edugrow-hero-btn-sub {
+    background-color: transparent;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+.edugrow-hero-btn-sub:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Image/Media Box */
+.edugrow-hero-media-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.edugrow-hero-img-frame {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sunder shadow effect */
+}
+
+.edugrow-hero-img-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   Responsive Styles (Mobile & Tablets)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .edugrow-hero-section {
+        padding: 40px 15px;
+    }
+
+    .edugrow-hero-wrapper {
+        flex-direction: column-reverse; /* Mobile par pehle text dikhega, fir image (Aap column bhi kar sakte hain agar image upar chahiye) */
+        gap: 30px;
+        text-align: center; /* Mobile par text center karne ke liye */
+    }
+
+    .edugrow-hero-text-content h1 {
+        font-size: 2rem; /* Choti screen par heading choti ho jayegi */
+    }
+
+    .edugrow-hero-text-content p {
+        font-size: 1rem;
+    }
+
+    .edugrow-hero-action-buttons {
+        justify-content: center; /* Buttons center mein aa jayenge */
+        width: 100%;
+    }
+
+    .edugrow-hero-action-buttons a {
+        width: 100%; /* Mobile par buttons full width ho jayenge touch karne mein aasaani ke liye */
+        max-width: 280px;
+    }
+}
