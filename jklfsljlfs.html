@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GrowAll — Learn. Build. Grow.</title>
+    <style>
+        /* ==========================================================================
+   1. GLOBAL RESETS & VARIABLES
+   ========================================================================== */
+        :root {
+            --primary-color: #14213d;
+            --primary-dark: #0d1729;
+            --accent-color: #0077b6;
+            --accent-light: #00a8e8;
+            --text-main: #2b2d42;
+            --text-muted: #6c757d;
+            --bg-light: #f4f6fb;
+            --bg-white: #ffffff;
+            --border-radius-xl: 24px;
+            --border-radius-lg: 18px;
+            --border-radius-md: 12px;
+            --border-radius-sm: 8px;
+            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --shadow-sm: 0 2px 10px rgba(20, 33, 61, 0.04);
+            --shadow-md: 0 12px 32px rgba(20, 33, 61, 0.08);
+            --shadow-lg: 0 24px 48px rgba(20, 33, 61, 0.18);
+            --gradient-primary: linear-gradient(135deg, #14213d 0%, #0077b6 100%);
+            --gradient-soft: linear-gradient(135deg, #f4f6fb 0%, #e8eef7 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+        }
+
+        body {
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--bg-light);
+        }
+
+        /* ==========================================================================
+   2. LAYOUT SHELL
+   ========================================================================== */
+        .page-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        main {
+            padding: 40px 0;
+        }
+
+        #header-placeholder {
+            height: 70px;
+            width: 100%;
+        }
+
+        /* ==========================================================================
+   3. HERO SECTION
+   ========================================================================== */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 56px;
+            align-items: center;
+            padding: 60px 0 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 119, 182, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-content .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(0, 119, 182, 0.1);
+            color: var(--accent-color);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 119, 182, 0.2);
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            line-height: 1.15;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h1 span {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        /* ==========================================================================
+   4. HERO PREVIEW (DASHBOARD WIDGET)
+   ========================================================================== */
+        .hero-preview {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-xl);
+            padding: 28px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .hero-preview:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .preview-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 14px;
+        }
+
+        .preview-status {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .preview-status::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        .preview-course-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .preview-icon {
+            width: 52px;
+            height: 52px;
+            background: #fffbdc;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            transition: var(--transition-bounce);
+        }
+
+        .hero-preview:hover .preview-icon {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        .preview-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .preview-course-header strong {
+            display: block;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .preview-course-header small {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .progress-label span:last-child {
+            color: var(--accent-color);
+        }
+
+        .progress-track {
+            height: 10px;
+            background: #edf2f7;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .progress-value {
+            height: 100%;
+            background: linear-gradient(90deg, #f7df1e, #f0a500);
+            border-radius: 6px;
+            transition: width 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-value::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .preview-lesson {
+            background: var(--gradient-soft);
+            padding: 14px 18px;
+            border-radius: var(--border-radius-md);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary-color);
+            border: 1px solid rgba(0, 119, 182, 0.1);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .preview-lesson:hover {
+            border-color: var(--accent-color);
+            transform: translateX(4px);
+        }
+
+        .play-circle {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* ==========================================================================
+   5. CATALOG SECTION & FILTERS
+   ========================================================================== */
+        .catalog-section {
+            padding: 40px 0 60px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-heading h2 {
+            font-size: 2.4rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .section-heading p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        .catalog-tools {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 44px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-white);
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius-md);
+            padding: 0 18px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(0, 119, 182, 0.12);
+        }
+
+        .search-box span {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-right: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 14px 0;
+            width: 100%;
+            font-size: 0.95rem;
+            background: transparent;
+        }
+
+        .filter-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 11px 22px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: var(--bg-white);
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            cursor: pointer;
+            color: var(--text-main);
+            transition: var(--transition-smooth);
+        }
+
+        .filter-chip:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .filter-chip.active {
+            background: var(--gradient-primary);
+            color: var(--bg-white);
+            border-color: transparent;
+            box-shadow: 0 6px 16px rgba(20, 33, 61, 0.2);
+        }
+
+        /* ==========================================================================
+   6. COURSE GRID & CARDS
+   ========================================================================== */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 28px;
+            min-height: 200px;
+        }
+
+        .course-card {
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            border: 1px solid #edf2f7;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+            animation: fadeInUp 0.6s ease backwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .course-card .course-logo {
+            width: 52px;
+            height: 52px;
+            background: var(--card-tint, #f0f0f0);
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            transition: var(--transition-bounce);
+        }
+
+        .course-card:hover .course-logo {
+            transform: scale(1.08) rotate(-4deg);
+        }
+
+        .course-card .course-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .level-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: #edf2f7;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .course-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .course-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 22px;
+            flex-grow: 1;
+            line-height: 1.6;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 18px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+            padding-top: 18px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .card-bottom {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-bottom button {
+            flex: 1;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .preview-button {
+            background: #edf2f7;
+            color: var(--text-main);
+        }
+
+        .preview-button:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .start-button {
+            background: var(--primary-color);
+            color: var(--bg-white);
+        }
+
+        .start-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 119, 182, 0.3);
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--bg-white);
+            border-radius: var(--border-radius-lg);
+            border: 2px dashed #e2e8f0;
+            color: var(--text-muted);
+        }
+
+        .empty-state strong {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* ==========================================================================
+   7. MODAL CUSTOM COMPONENT
+   ========================================================================== */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(20, 33, 61, 0.5);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .course-modal {
+            background: var(--bg-white);
+            width: 100%;
+            max-width: 560px;
+            border-radius: var(--border-radius-xl);
+            padding: 36px;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(30px) scale(0.94);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-backdrop.open .course-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .modal-course-title {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .modal-course-title .course-logo {
+            width: 56px;
+            height: 56px;
+            background: var(--card-tint, #f0f0f0);
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        #modalTitle {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        #modalSubtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .close-modal {
+            background: #f1f5f9;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            line-height: 1;
+            transition: var(--transition-smooth);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-color);
+            background: #e2e8f0;
+            transform: rotate(90deg);
+        }
+
+        .modal-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 28px;
+            line-height: 1.7;
+        }
+
+        .lesson-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .lesson-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--gradient-soft);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .lesson-list li:hover {
+            border-color: var(--accent-color);
+            transform: translateX(6px);
+        }
+
+        .lesson-number {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-primary);
+            color: var(--bg-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-top: 1px solid #edf2f7;
+            padding-top: 24px;
+        }
+
+        .modal-footer button {
+            padding: 13px 26px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .outline-button {
+            background: transparent;
+            border: 2px solid #e2e8f0;
+            color: var(--text-main);
+        }
+
+        .outline-button:hover {
+            background: var(--bg-light);
+            border-color: #cbd5e1;
+        }
+
+        .primary-button {
+            background: var(--gradient-primary);
+            color: var(--bg-white);
+            box-shadow: 0 6px 16px rgba(20, 33, 61, 0.2);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(20, 33, 61, 0.3);
+        }
+
+        /* ==========================================================================
+   8. KEYFRAMES & ANIMATIONS
+   ========================================================================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        /* ==========================================================================
+   9. RESPONSIVE DESIGN
+   ========================================================================== */
+        @media (max-width: 968px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                text-align: center;
+                padding: 40px 0 60px;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-content h1 {
+                font-size: 2.6rem;
+            }
+
+            .hero-content .badge {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                padding: 0 18px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.1rem;
+            }
+
+            .section-heading h2 {
+                font-size: 1.8rem;
+            }
+
+            .catalog-tools {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .filter-list {
+                justify-content: center;
+            }
+
+            .course-modal {
+                padding: 24px 20px;
+                margin: 16px;
+            }
+
+            .modal-footer {
+                flex-direction: column-reverse;
+            }
+
+            .modal-footer button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="page-shell">
+        <main>
+            <section class="hero" id="about">
+                <div class="hero-content">
+                    <span class="badge">🚀 Start Learning Today</span>
+                    <h1>Shape Your Future With <span>Expert Courses.</span></h1>
+                    <p>Aapki growth hamari priority hai. Explore practical courses designed to help you learn
+                        programming, build projects, and move forward with confidence.</p>
+                </div>
+
+                <div class="hero-preview" id="how-it-works">
+                    <div class="preview-top">
+                        <span>YOUR LEARNING DASHBOARD</span>
+                        <span class="preview-status">Live preview</span>
+                    </div>
+                    <div class="preview-course">
+                        <div class="preview-course-header">
+                            <div class="preview-icon">
+                                <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript logo" />
+                            </div>
+                            <div>
+                                <strong>JavaScript Essentials</strong>
+                                <small>Frontend development</small>
+                            </div>
+                        </div>
+                        <div class="progress-label">
+                            <span>Course progress</span>
+                            <span>68%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-value" style="width: 68%;"></div>
+                        </div>
+                        <div class="preview-lesson">
+                            <span class="play-circle">▶</span>
+                            Continue: DOM manipulation basics
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="catalog-section" id="courses">
+                <div class="section-heading">
+                    <h2>Choose your next skill.</h2>
+                    <p>Hand-picked courses to take you from beginner to confident builder.</p>
+                </div>
+
+                <div class="catalog-tools">
+                    <label class="search-box" aria-label="Search courses">
+                        <span>⌕</span>
+                        <input id="searchInput" type="search" placeholder="Search courses..." autocomplete="off" />
+                    </label>
+
+                    <div class="filter-list" aria-label="Course categories">
+                        <button class="filter-chip active" data-filter="All">All</button>
+                        <button class="filter-chip" data-filter="Frontend">Frontend</button>
+                        <button class="filter-chip" data-filter="Programming">Programming</button>
+                        <button class="filter-chip" data-filter="Fundamentals">Fundamentals</button>
+                    </div>
+                </div>
+
+                <div class="course-grid" id="courseGrid"></div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-backdrop" id="modalBackdrop" role="presentation">
+        <div class="course-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+            onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-course-title">
+                    <div class="course-logo" id="modalLogo"></div>
+                    <div>
+                        <h3 id="modalTitle">Course title</h3>
+                        <p id="modalSubtitle">Course category</p>
+                    </div>
+                </div>
+                <button class="close-modal" id="closeModal" aria-label="Close course preview">×</button>
+            </div>
+            <p class="modal-description" id="modalDescription"></p>
+            <ul class="lesson-list" id="lessonList"></ul>
+            <div class="modal-footer">
+                <button class="outline-button" id="modalCloseButton">Close</button>
+                <button class="primary-button" id="modalStartButton">Start course ↗</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const courses = [
+            { id: "css", sub_category_id: 1, name: "CSS", category: "Frontend", level: "Beginner", lessons: 24, duration: "6 weeks", logo: "https://cdn.simpleicons.org/css3/1572B6", tint: "#e2f1ff", description: "Learn how to transform simple HTML into beautiful, responsive interfaces with modern CSS.", topics: ["Selectors, colors, and typography", "Flexbox and CSS Grid layouts", "Responsive design and media queries"] },
+            { id: "html", sub_category_id: 2, name: "HTML", category: "Frontend", level: "Beginner", lessons: 20, duration: "5 weeks", logo: "https://cdn.simpleicons.org/html5/E34F26", tint: "#fff0e9", description: "Build the structure of every modern website using semantic, accessible HTML.", topics: ["Semantic page structure", "Forms, media, and links", "Accessibility fundamentals"] },
+            { id: "java", sub_category_id: 3, name: "Java", category: "Programming", level: "Intermediate", lessons: 35, duration: "10 weeks", logo: "https://cdn.simpleicons.org/openjdk/ED8B00", tint: "#fff1d8", description: "Develop a strong foundation in object-oriented programming with Java.", topics: ["Classes, objects, and inheritance", "Collections and exception handling", "Building structured Java applications"] },
+            { id: "javascript", sub_category_id: 4, name: "JavaScript", category: "Frontend", level: "Beginner", lessons: 32, duration: "8 weeks", logo: "https://cdn.simpleicons.org/javascript/F7DF1E", tint: "#fffbdc", description: "Make websites interactive and learn the core language behind modern web applications.", topics: ["Variables, functions, and arrays", "DOM events and interaction", "Async JavaScript and APIs"] },
+            { id: "c", sub_category_id: 5, name: "C", category: "Fundamentals", level: "Beginner", lessons: 28, duration: "7 weeks", logo: "https://cdn.simpleicons.org/c/A8B9CC", tint: "#edf2f7", description: "Understand programming fundamentals, memory, and efficient problem solving with C.", topics: ["Variables, control flow, and functions", "Pointers and memory", "Arrays, strings, and structures"] },
+            { id: "cpp", sub_category_id: 6, name: "C++", category: "Programming", level: "Intermediate", lessons: 38, duration: "11 weeks", logo: "https://cdn.simpleicons.org/cplusplus/00599C", tint: "#e5f1ff", description: "Move from programming fundamentals to powerful object-oriented C++ applications.", topics: ["Object-oriented programming", "STL containers and algorithms", "Modern C++ project patterns"] },
+            { id: "csharp", sub_category_id: 7, name: "C#", category: "Programming", level: "Intermediate", lessons: 34, duration: "9 weeks", logo: "https://cdn.simpleicons.org/csharp/239120", tint: "#e9f8e8", description: "Learn C# for application development, problem solving, and the .NET ecosystem.", topics: ["C# syntax and object-oriented design", "LINQ and collections", "Introduction to .NET applications"] }
+        ];
+
+        let selectedFilter = "All";
+        let selectedCourse = null;
+
+        const courseGrid = document.getElementById("courseGrid");
+        const searchInput = document.getElementById("searchInput");
+        const modalBackdrop = document.getElementById("modalBackdrop");
+        const modalLogo = document.getElementById("modalLogo");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalSubtitle = document.getElementById("modalSubtitle");
+        const modalDescription = document.getElementById("modalDescription");
+        const lessonList = document.getElementById("lessonList");
+
+        function renderCourses() {
+            const query = searchInput.value.trim().toLowerCase();
+            const filteredCourses = courses.filter((course) => {
+                const matchesFilter = selectedFilter === "All" || course.category === selectedFilter;
+                const matchesSearch = course.name.toLowerCase().includes(query) || course.category.toLowerCase().includes(query) || course.description.toLowerCase().includes(query);
+                return matchesFilter && matchesSearch;
+            });
+
+            if (!filteredCourses.length) {
+                courseGrid.innerHTML = `<div class="empty-state"><strong>No courses found.</strong>Try a different search term or category.</div>`;
+                return;
+            }
+
+            courseGrid.innerHTML = filteredCourses.map((course, index) => `
+                <article class="course-card" style="--card-tint: ${course.tint}; animation-delay: ${index * 55}ms;">
+                    <div class="card-top">
+                        <div class="course-logo" style="--card-tint: ${course.tint};">
+                            <img src="${course.logo}" alt="${course.name} official logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<strong style=&quot;font-size:1.2rem&quot;>${course.name}</strong>';" />
+                        </div>
+                        <span class="level-badge">${course.level}</span>
+                    </div>
+                    <h3>${course.name}</h3>
+                    <p>${course.description}</p>
+                    <div class="course-meta">
+                        <span>▣ ${course.lessons} lessons</span>
+                        <span>◷ ${course.duration}</span>
+                    </div>
+                    <div class="card-bottom">
+                        <button class="preview-button" onclick="openCourse('${course.id}')">Preview</button>
+                        <button class="start-button" onclick="startCourse('${course.id}')">Start course</button>
+                    </div>
+                </article>
+            `).join("");
+        }
+
+        window.openCourse = function (courseId) {
+            const course = courses.find((item) => item.id === courseId);
+            if (!course) return;
+
+            selectedCourse = course;
+            modalLogo.style.setProperty("--card-tint", course.tint);
+            modalLogo.innerHTML = `<img src="${course.logo}" alt="${course.name} logo" style="width:35px;height:35px;object-fit:contain;" />`;
+            modalTitle.textContent = course.name;
+            modalSubtitle.textContent = `${course.category} · ${course.level}`;
+            modalDescription.textContent = course.description;
+
+            lessonList.innerHTML = course.topics.map((topic, index) => `
+                <li><span class="lesson-number">${index + 1}</span>${topic}</li>
+            `).join("");
+
+            modalBackdrop.classList.add("open");
+            document.body.style.overflow = "hidden";
+        }
+
+        window.closeCourse = function () {
+            modalBackdrop.classList.remove("open");
+            document.body.style.overflow = "";
+        }
+
+        window.startCourse = function (courseId) {
+            closeCourse();
+            const course = courses.find((item) => item.id === courseId);
+            if (course && course.sub_category_id) {
+                window.location.href = `https://growallcoaching.online/Lectures/lectures.html?sub_category_id=${course.sub_category_id}`;
+            } else {
+                showMessage("Course link not found.");
+            }
+        }
+
+        function showMessage(message) {
+            const toast = document.createElement("div");
+            toast.textContent = message;
+            toast.style.cssText = `position: fixed; left: 50%; bottom: 28px; z-index: 200; max-width: calc(100% - 32px); padding: 14px 18px; border-radius: 13px; color: #fff; background: var(--gradient-primary); box-shadow: 0 14px 35px rgba(20,33,61,.25); font-size: .86rem; font-weight: 700; transform: translateX(-50%); animation: cardIn .3s both;`;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = "0"; toast.style.transition = "opacity .25s ease"; setTimeout(() => toast.remove(), 250); }, 2600);
+        }
+
+        document.querySelectorAll(".filter-chip").forEach((chip) => {
+            chip.addEventListener("click", () => {
+                document.querySelectorAll(".filter-chip").forEach((item) => { item.classList.remove("active"); });
+                chip.classList.add("active");
+                selectedFilter = chip.dataset.filter;
+                renderCourses();
+            });
+        });
+
+        searchInput.addEventListener("input", renderCourses);
+        document.getElementById("closeModal").addEventListener("click", closeCourse);
+        document.getElementById("modalCloseButton").addEventListener("click", closeCourse);
+        document.getElementById("modalStartButton").addEventListener("click", () => { if (selectedCourse) { startCourse(selectedCourse.id); } });
+        modalBackdrop.addEventListener("click", closeCourse);
+        document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeCourse(); } });
+
+        renderCourses();
+    </script>
+</body>
+
+</html>
